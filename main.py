@@ -1,9 +1,9 @@
 if __name__ == '__main__':
     import sqlalchemy
-    from testcontainers.mysql import MySqlContainer
+    from testcontainers.postgres import PostgresContainer
 
-    with MySqlContainer('mysql:5.7.17') as mysql:
-        print(f"connection url: {mysql.get_connection_url()}")
-        engine = sqlalchemy.create_engine(mysql.get_connection_url())
+    with PostgresContainer('postgres:14.0-alpine') as postgresql:
+        print(f"connection url: {postgresql.get_connection_url()}")
+        engine = sqlalchemy.create_engine(postgresql.get_connection_url())
         version, = engine.execute("select version()").fetchone()
-        print(f'MySQL version: {version}')  # 5.7.17, as specified above
+        print(f'Postgresql version: {version}')  # 14.0, as specified above
